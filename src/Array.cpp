@@ -1,3 +1,4 @@
+#include <sstream>
 #include <stdexcept>
 
 #include "ds/array.h"
@@ -65,4 +66,13 @@ T& Array<T>::operator[](int i) {
 template <class T>
 int Array<T>::length(){
 	return l;
+}
+
+template <class T>
+std::string Array<T>::draw(){
+	std::stringstream ss;
+	for (int i = 0; i < l; i++){
+		ss << a[i] << " ";
+	}
+	return ss.str();
 }
