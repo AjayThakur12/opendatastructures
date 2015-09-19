@@ -1,39 +1,35 @@
 #include <iostream>
 
-#include "ds/lists.h"
+#include "ds/array_lists.h"
 
 using namespace std;
 
-void listCheck(IList<int> &list){
-	list.add(0, 1);
-	list.add(0, 2);
-	list.add(0, 3);
-
-	cout << "list value at 0 is " << list.get(0) << endl;
-	cout << "list value at 1 is " << list.get(1) << endl;
-	cout << "list value at 2 is " << list.get(2) << endl;
-
-	list.set(0,0);
-
-	cout << "list value at 0 is " << list.get(0) << endl;
-
-	list.remove(0);
-
-	cout << "list value at 0 is " << list.get(0) << endl;
-}
+#include "./helpers/lists/deque_check.cpp"
+#include "./helpers/lists/list_check.cpp"
+#include "./helpers/lists/queue_check.cpp"
+#include "./helpers/lists/stack_check.cpp"
 
 int main() {
 	cout << endl << "Testing ArrayStack" << endl;
 	ArrayStack<int> as;
 	listCheck(as);
+	stackCheck(as);
 
 	cout << endl << "Testing FastArrayStack" << endl;
 	FastArrayStack<int> fas;
 	listCheck(fas);
+	stackCheck(fas);
+
+	cout << endl << "Testing ArrayQueue" << endl;
+	ArrayQueue<int> aq;
+	queueCheck(aq);
 
 	cout << endl << "Testing ArrayDeque" << endl;
 	ArrayDeque<int> ad;
 	listCheck(ad);
+	queueCheck(ad);
+	stackCheck(ad);
+	dequeCheck(ad);
 
 	cout << endl << "Testing DualArrayDeque" << endl;
 	DualArrayDeque<int> dad;

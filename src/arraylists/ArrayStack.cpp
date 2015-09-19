@@ -22,7 +22,7 @@
 * std::vector provides similar benefits.
 */
 
-#include "ds/lists.h"
+#include "ds/array_lists.h"
 
 
 /**
@@ -98,4 +98,19 @@ T ArrayStack<T>::remove(int i){
 	if (a.length() >= 3*n) resize();
 
 	return x;
+}
+
+
+/**
+* Stack push method can be efficiently implemented by adding the
+* new element at the end of the array.
+*/
+template <class T>
+void ArrayStack<T>::push(T x){
+	add(n, x);
+}
+
+template <class T>
+T ArrayStack<T>::pop(){
+	return remove(n-1);
 }

@@ -34,36 +34,26 @@
 *    add(i,x): O(min(i,n-i)), ie at worst half the array will need to be moved
 *      remove: O(min(i,n-i)), ie at worst half the array will need to be moved
 */
+#include "ds/array_lists.h"
 
-#include "ds/lists.h"
-
-template <class T>
-void ArrayDeque<T>::resize(){
-	Array<T> b(std::max(1, 2*n));
-	for (int k=0; k < n; k++){
-		b[k] = a[(j+k) % a.length()];
-	}
-	a = b;
-	j = 0;
-}
-
-
+// Copy-pasted from ArrayQueue.
 template <class T>
 int ArrayDeque<T>::size(){
-	return n;
+	return this->n;
 }
 
 
 template <class T>
 T ArrayDeque<T>::get(int i){
-	return a[(j+i) % a.length()];
+	return this->a[(this->j+i) % this->a.length()];
 }
 
 
 template <class T>
 T ArrayDeque<T>::set(int i, T x){
-	T y = a[(j+i) % a.length()];
-	a[(j+i) % a.length()] = x;
+	int index = (this->j+i) % this->a.length();
+	T y = this->a[index];
+	this->a[index] = x;
 	return y;
 }
 
@@ -74,19 +64,19 @@ T ArrayDeque<T>::set(int i, T x){
 */
 template <class T>
 void ArrayDeque<T>::add(int i, T x){
-	if (n+1 > a.length()) resize();
-	if (i < n/2){
-		j = (j==0) ? a.length() -1 : j-1;
+	if (this->n+1 > this->a.length()) this->resize();
+	if (i < this->n/2){
+		this->j = (this->j==0) ? this->a.length() -1 : this->j-1;
 		for (int k=0; k <= i-1; k++){
-			a[(j+k) % a.length()] = a[(j+k+1) % a.length()];
+			this->a[(this->j+k) % this->a.length()] = this->a[(this->j+k+1) % this->a.length()];
 		}
 	} else {
-		for (int k=n; k > i; k--){
-			a[(j+k) % a.length()] = a[(j+k-1) & a.length()];
+		for (int k=this->n; k > i; k--){
+			this->a[(this->j+k) % this->a.length()] = this->a[(this->j+k-1) & this->a.length()];
 		}
 	}
-	a[(j+i) % a.length()] = x;
-	n++;
+	this->a[(this->j+i) % this->a.length()] = x;
+	this->n++;
 }
 
 
@@ -96,20 +86,55 @@ void ArrayDeque<T>::add(int i, T x){
 */
 template <class T>
 T ArrayDeque<T>::remove(int i){
-	T x = a[(j+i) % a.length()];
-	if (i < n/2) {
+	T x = this->a[(this->j+i) % this->a.length()];
+	if (i < this->n/2) {
 		for (int k = i; k >0; k--){
-			a[(j+k) % a.length()] = a[(j+k-1) % a.length()];
+			this->a[(this->j+k) % this->a.length()] = this->a[(this->j+k-1) % this->a.length()];
 		}
-		j = (j+1) % a.length();
+		this->j = (this->j+1) % this->a.length();
 	} else {
-		for (int k = i; k < n-1; k++){
-			a[(j+k) % a.length()] = a[(j+k+1) % a.length()];
+		for (int k = i; k < this->n-1; k++){
+			this->a[(this->j+k) % this->a.length()] = this->a[(this->j+k+1) % this->a.length()];
 		}
 	}
-	n--;
-	if (3*n < a.length()) resize();
+	this->n--;
+	if (3*this->n < this->a.length()) this->resize();
 
 	return x;
+}
+
+
+template <class T>
+void ArrayDeque<T>::addLast(T x){
+	add(this->n, x);
+}
+
+
+template <class T>
+T ArrayDeque<T>::removeLast(){
+	return remove(this->n-1);
+}
+
+
+template <class T>
+void ArrayDeque<T>::addFirst(T x){
+	add(0, x);
+}
+
+
+template <class T>
+T ArrayDeque<T>::removeFirst(){
+	return remove(0);
+}
+
+
+template <class T>
+void ArrayDeque<T>::push(T x){
+	addFirst(x);
+}
+
+template <class T>
+T ArrayDeque<T>::pop(){
+	return removeFirst();
 }
 

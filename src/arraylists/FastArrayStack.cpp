@@ -3,7 +3,7 @@
 * features for efficient movement of data.
 */
 
-#include "ds/lists.h"
+#include "ds/array_lists.h"
 
 template <class T>
 void FastArrayStack<T>::resize(){
@@ -53,4 +53,20 @@ T FastArrayStack<T>::remove(int i){
 
 	return x;
 }
+
+
+/**
+* Stack push method can be efficiently implemented by adding the
+* new element at the end of the array.
+*/
+template <class T>
+void FastArrayStack<T>::push(T x){
+	add(n, x);
+}
+
+template <class T>
+T FastArrayStack<T>::pop(){
+	return remove(n-1);
+}
+
 

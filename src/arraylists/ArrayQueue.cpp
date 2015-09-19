@@ -37,13 +37,19 @@
 * The backing array will resize to accomodate extra data if all elements
 * are full.
 *
+* ArrayQueue doesn't implement list methods.
+* In order to allow random access to elements in the list,
+* all of the ArrayDeque functionality needs to be implemented.
+* This means the structure can only be used as a strict queue.
+* If peeking or queue jumping behaviour is needed, ArrayDeque
+* provides that interface.
+*
 * Performance:
 *
-*      add(x): O(1)
-*    remove(): O(1)
+*    enqueue(x): O(1)
+*    dequeue(): O(1)
 */
-
-#include "ds/queues.h"
+#include "ds/array_lists.h"
 
 
 /**
@@ -62,16 +68,21 @@ void ArrayQueue<T>::resize(){
 
 
 template <class T>
-bool ArrayQueue<T>::add(T x){
-	if (n+1 > a.length()) resize();
-	a[(j+n) % a.length()] = x;
-	n++;
-	return true;
+int ArrayQueue<T>::size(){
+	return n;
 }
 
 
 template <class T>
-T ArrayQueue<T>::remove(){
+void ArrayQueue<T>::enqueue(T x){
+	if (n+1 > a.length()) resize();
+	a[(j+n) % a.length()] = x;
+	n++;
+}
+
+
+template <class T>
+T ArrayQueue<T>::dequeue(){
 	// What if the queue is empty?
 	T x = a[j];
 	j = (j+1) % a.length();

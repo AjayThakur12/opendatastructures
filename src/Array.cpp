@@ -55,7 +55,7 @@ T& Array<T>::operator[](int i) {
 	if (i >= 0 && i < l){
 		return a[i];
 	} else {
-		throw std::invalid_argument("index outside range");
+		throw std::out_of_range("index is outside array bounds");
 	}
 }
 

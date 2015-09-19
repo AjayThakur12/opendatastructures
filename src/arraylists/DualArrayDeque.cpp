@@ -25,7 +25,7 @@
 *      remove: O(min(i,n-i)), ie at worst half the array will need to be moved
 */
 
-#include "ds/lists.h"
+#include "ds/array_lists.h"
 
 /**
 * If one of the ArrayStacks contains 3 or more times as much data as the other,
