@@ -1,3 +1,31 @@
+/**
+* Doubly-linked list implementing stack, queue, and deque interfaces.
+*
+* Each node contains a reference to the next and previous node.
+* Rather than keep track of the head and tail (which would have no
+* previous and next nodes, respectively), the list is made circular
+* with a dummy node which contains no data but removes special cases
+* by ensuring every node has a previous and next node.
+*
+* List operations should be twice as efficient as the SLList because
+* if we are looking for an entry in the second half of the list, we
+* can work backwards from the tail.
+*
+* Performance:
+*        get(i): O(1+ min{i, n − i})
+*      set(i,x): O(1+ min{i, n − i})
+*      add(i,x): O(1+ min{i, n − i})
+*     remove(i): O(1+ min{i, n − i})
+*       push(x): O(1)
+*         pop(): O(1)
+*    enqueue(x): O(1)
+*    dequeue(x): O(1)
+*   addFirst(x): O(1)
+* removeFirst(): O(1)
+*    addLast(x): O(1)
+* removeLast(x): O(1)
+*/
+
 template <class T>
 DLList<T>::DLList(): dummy(DNode<T>(0)){
 	dummy.next = &dummy;
